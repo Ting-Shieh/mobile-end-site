@@ -1,0 +1,178 @@
+{
+  "salesBarMockData":{
+    "title": "今日銷售額",
+    "axis":["AAA","BBB","CCC","DDD","EEE"],
+    "data1Obj":{
+      "name": "平台流量",
+      "data1":[]
+    },
+    "data2Obj":{
+      "name": "外部流量",
+      "data2":[]
+    }
+  },
+  "salesLineMockData":{
+    "title": "分時訪問&成交趨勢圖",
+    "axis":[],
+    "data1Obj":{
+      "name": "訪問量",
+      "data1":[]
+    },
+    "data2Obj":{
+      "name": "成交量",
+      "data2":[]
+    },
+    "data3Obj":{
+      "name": "KPI",
+      "data3":[]
+    }
+  },
+  "salesPieMockData":{
+    "data1Obj":{
+      "title": "轉換率",
+      "value": 0,
+      "range": [1000]
+    },
+    "data2Obj":{
+      "title": "退單率",
+      "value": 0,
+      "range": [1000]
+    },
+    "data3Obj":{
+      "title": "流失率",
+      "value": 0,
+      "range": [1000]
+    }
+  },
+  "salesSunMockData":[
+    {
+      "name": "小食",
+      "itemStyle": {},
+      "children": [{
+        "name": "奶茶",
+        "children": [{
+          "name": "5☆",
+          "children": [{
+            "name": "港式奶茶"
+          }, {
+            "name": "珍珠奶茶"
+          }]
+        }]
+      }, {
+        "name": "串串",
+        "children": [{
+          "name": "5☆",
+          "children": [{
+            "name": "羊肉串"
+          }]
+        }, {
+          "name": "4☆",
+          "children": [{
+            "name": "牛肉串"
+          }, {
+            "name": "豬肉串"
+          }]
+        }, {
+          "name": "3☆",
+          "children": [{
+            "name": "其他"
+          }]
+        }]
+      }]
+    }, 
+    {
+      "name": "主食",
+      "itemStyle": {},
+      "children": [
+        {
+          "name": "米饭",
+          "children": [
+            {
+              "name": "5☆",
+              "children": [
+                {
+                  "name": "王者炒饭"
+                }
+              ]
+            }, 
+            {
+              "name": "4☆",
+              "children": [
+                {
+                  "name": "套餐"
+                }, {
+                  "name": "轻食"
+                }
+              ]
+            }
+          ]
+        }, 
+        {
+          "name": "粥",
+          "children": [
+            {
+              "name": "5☆",
+              "children": [
+                {
+                  "name": "牛肉粥"
+                }
+              ]
+            }, 
+            {
+              "name": "4☆",
+              "children": [
+                {
+                  "name": "白米粥"
+                }, {
+                  "name": "红豆粥"
+                }
+              ]
+            }
+          ]
+        }, 
+        {
+          "name": "西餐",
+          "children": [
+            {
+              "name": "5☆",
+              "children": [
+                {
+                  "name": "汉堡"
+                }
+              ]
+            }, 
+            {
+              "name": "4☆",
+              "children": [
+                {
+                  "name": "薯条"
+                }, {
+                  "name": "薯饼"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "salesRadarMockData":{
+    "indicator": [
+      {"name": "訂單量","max": 11000},
+      {"name": "騎手量","max": 16000},
+      {"name": "訪問量","max": 30000},
+      {"name": "客服","max": 38000},
+      {"name": "配送","max": 52000},
+      {"name": "熱度","max": 25000}
+    ],
+    "predictData":{
+      "name": "預期",
+      "value": []
+    },
+    "realData":{
+      "name": "實際",
+      "value": []
+    },
+    "name": "運營指標"
+  }
+}

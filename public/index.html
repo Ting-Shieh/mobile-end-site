@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script>
+      const baseSize = 32 //基準值
+      function setRem(){
+        // 相對於750px 該如何縮放=> get 縮放比例
+        const scaleRatio = document.documentElement.clientWidth / 750
+        // scale 最小不得低於兩倍
+        document.documentElement.style.fontSize = baseSize * Math.min(scaleRatio, 2) + "px"
+        console.log("scale: ", scaleRatio)
+      }
+      setRem()
+      window.onresize = function(){
+        setRem()
+      }
+      
+    </script>
   </head>
   <body>
     <noscript>

@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "echarts": "^5.3.3",
+    "postcss-px2rem": "^0.3.0",
     "vue": "^3.0.0",
+    "vue-echarts": "^6.2.3",
     "vue-router": "^4.0.0-0",
+    "vue3-echarts": "^1.0.4",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {

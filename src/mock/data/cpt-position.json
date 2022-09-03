@@ -1,0 +1,22 @@
+{
+  "salesBarCptPosition":{
+    "top": "300px",
+    "height": "650px"
+  },
+  "salesLineCptPosition":{
+    "top": "950px",
+    "height": "500px"
+  },
+  "salesPieCptPosition":{
+    "top": "1450px",
+    "height": "400px"
+  },
+  "salesSunCptPosition":{
+    "top": "1850px",
+    "height": "800px"
+  },
+  "salesRadarCptPosition":{
+    "top": "2650px",
+    "height": "800px"
+  }
+}

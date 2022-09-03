@@ -1,18 +1,39 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="datav-wrapper"></div>
+    <top-header />
+    <sales-bar />
+    <sales-line />
+    <sales-pie />
+    <sales-sun />
+    <sales-radar />
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+<script setup>
+import TopHeader from '@/components/TopHeader'
+import SalesBar from '@/components/SalesBar'
+import SalesLine from '@/components/SalesLine'
+import SalesPie from '@/components/SalesPie'
+import SalesSun from '@/components/SalesSun'
+import SalesRadar from '@/components/SalesRadar'
+// import {ref, onMounted} from 'vue'
 </script>
+<style lang="scss" scoped>
+  .home{
+    position: relative;
+    height: 100%;
+    .datav-wrapper{
+      position: absolute;
+      top: 0;
+      left: 0px;
+      width: 100%;
+      height: 100vh;//1336px;
+      z-index: 1;
+      background-image: url('//www.youbaobao.xyz/datav-res/datav/datav-mobile-bg.jpg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
+  }
+
+</style>
