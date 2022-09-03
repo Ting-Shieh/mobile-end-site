@@ -17,7 +17,12 @@ import SalesLine from '@/components/SalesLine'
 import SalesPie from '@/components/SalesPie'
 import SalesSun from '@/components/SalesSun'
 import SalesRadar from '@/components/SalesRadar'
-// import {ref, onMounted} from 'vue'
+import { apiGetScreenMobileData } from '@/api/mobile-data.js'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  console.log(apiGetScreenMobileData())
+})
 </script>
 <style lang="scss" scoped>
   .home{
