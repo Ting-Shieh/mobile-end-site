@@ -3,17 +3,17 @@
     <div class="sales-pie-inner">
       <div class="sales-pie-item">
         <div class="sales-pie-item-inner">
-          <vue-echarts :option="options1" style="width:100%;height: 100%"/>
+          <vue-echarts :option="options1" style="width: 100%; height: 100%" />
         </div>
       </div>
       <div class="sales-pie-item">
         <div class="sales-pie-item-inner">
-          <vue-echarts :option="options2" style="width:100%;height: 100%"/>
+          <vue-echarts :option="options2" style="width: 100%; height: 100%" />
         </div>
       </div>
       <div class="sales-pie-item">
         <div class="sales-pie-item-inner">
-          <vue-echarts :option="options3" style="width:100%;height: 100%"/>
+          <vue-echarts :option="options3" style="width: 100%; height: 100%" />
         </div>
       </div>
     </div>
@@ -30,28 +30,29 @@ const props = defineProps({
 const options1 = ref({})
 const options2 = ref({})
 const options3 = ref({})
-const {
-  salesPieData
-} = useMockData()
+const { salesPieData } = useMockData()
 const createOptions = (title, val, range) => {
   return {
-    title: [{
-      text: title,
-      textStyle: {
-        color: 'rgba(255, 255, 255, .3)',
-        fontSize: 12
+    title: [
+      {
+        text: title,
+        textStyle: {
+          color: 'rgba(255, 255, 255, .3)',
+          fontSize: 12
+        },
+        top: 3
       },
-      top: 3
-    }, {
-      text: val,
-      textStyle: {
-        color: 'rgb(255, 255, 255 )',
-        fontSize: 16,
-        fontWeight: 500
-      },
-      top: '43%',
-      left: '32%'
-    }],
+      {
+        text: val,
+        textStyle: {
+          color: 'rgb(255, 255, 255 )',
+          fontSize: 16,
+          fontWeight: 500
+        },
+        top: '43%',
+        left: '32%'
+      }
+    ],
     tooltip: {
       trigger: 'item',
       formatter (params) {
@@ -85,16 +86,19 @@ const createOptions = (title, val, range) => {
         ]
       }
     ]
-
   }
 }
-const isDevModel = computed(() => props.data === 'null' || typeof (props.data) === 'undefined')
+const isDevModel = computed(
+  () => props.data === 'null' || typeof props.data === 'undefined'
+)
 const update = () => {
   let _data1
   let _data2
   let _data3
-  if (isDevModel.value && props.data) {
+  console.log('Pie: isDevModel', isDevModel)
+  if (!isDevModel.value && props.data) {
     const [data1, data2, data3] = props.data
+    console.log('update Pie', data1)
     _data1 = data1
     _data2 = data2
     _data3 = data3
@@ -116,42 +120,46 @@ const update = () => {
     isDevModel.value ? salesPieData.value.data3Obj.range : _data1.data
   )
 }
-watch(() => props.data, () => {
-  update()
-}, {
-  immediate: true
-})
+watch(
+  () => props.data,
+  () => {
+    update()
+  },
+  {
+    immediate: true
+  }
+)
 
 onMounted(() => {
   update()
 })
 </script>
 <style lang="scss" scoped>
-  .sales-pie{
-    position: absolute;
-    top: 1450px;
-    left: 0px;
-    z-index: 10;
+.sales-pie {
+  position: absolute;
+  top: 1450px;
+  left: 0px;
+  z-index: 10;
+  width: 100%;
+  height: 400px;
+  padding: 25px 12.5px 0px;
+  box-sizing: border-box;
+  .sales-pie-inner {
+    display: flex;
     width: 100%;
-    height: 400px;
-    padding: 25px 12.5px 0px;
-    box-sizing: border-box;
-    .sales-pie-inner{
-      display: flex;
-      width: 100%;
+    height: 100%;
+    .sales-pie-item {
+      width: 33.33%;
       height: 100%;
-      .sales-pie-item{
-        width: 33.33%;
+      flex: 0 0 33.33%;
+      padding: 0px 12.5px;
+      box-sizing: border-box;
+      .sales-pie-item-inner {
+        width: 100%;
         height: 100%;
-        flex: 0 0 33.33%;
-        padding: 0px 12.5px;
-        box-sizing: border-box;
-        .sales-pie-item-inner{
-          width: 100%;
-          height: 100%;
-          background: rgba(255,255,255,0.05);
-        }
+        background: rgba(255, 255, 255, 0.05);
       }
     }
   }
+}
 </style>
