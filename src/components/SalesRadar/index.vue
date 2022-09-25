@@ -7,28 +7,52 @@
 </template>
 <script setup>
 import useMockData from '@/mock/useMockData.js'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineProps, watch, computed } from 'vue'
+
+const props = defineProps({
+  data: {
+    type: Object
+  }
+})
 const options = ref({})
 const {
   salesRadarData
 } = useMockData()
+const isDevModel = computed(() => props.data === 'null' || typeof (props.data) === 'undefined')
 
-onMounted(() => {
+const update = () => {
+  let apiData
+  let apiIndicator
+  console.log('isDevModel.value', isDevModel.value)
+  if (!isDevModel.value) {
+    apiData = props.data.data
+    apiIndicator = props.data.indicator
+  }
   options.value = {
     radar: {
       name: {},
-      indicator: salesRadarData.value.indicator
+      indicator: isDevModel.value ? salesRadarData.value.indicator : apiIndicator
     },
     tooltip: {},
     series: [{
-      name: salesRadarData.value.name,
+      name: isDevModel.value ? salesRadarData.value.name : '運營指標',
       type: 'radar',
       data: [
-        { ...salesRadarData.value.predictData },
-        { ...salesRadarData.value.realData }
+        isDevModel.value ? { ...salesRadarData.value.predictData } : { ...apiData[0] },
+        isDevModel.value ? { ...salesRadarData.value.realData } : { ...apiData[1] }
       ]
     }]
   }
+}
+watch(() => props.data, (n, o) => {
+  console.log('watch:', n, o)
+  update()
+}, {
+  immediate: true
+})
+onMounted(() => {
+  console.log('props.data:', props.data)
+  update()
 })
 </script>
 <style lang="scss" scoped>

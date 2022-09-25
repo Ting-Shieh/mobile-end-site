@@ -21,7 +21,12 @@
 </template>
 <script setup>
 import useMockData from '@/mock/useMockData.js'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineProps, watch, computed } from 'vue'
+const props = defineProps({
+  data: {
+    type: Array
+  }
+})
 const options1 = ref({})
 const options2 = ref({})
 const options3 = ref({})
@@ -83,10 +88,42 @@ const createOptions = (title, val, range) => {
 
   }
 }
+const isDevModel = computed(() => props.data === 'null' || typeof (props.data) === 'undefined')
+const update = () => {
+  let _data1
+  let _data2
+  let _data3
+  if (isDevModel.value && props.data) {
+    const [data1, data2, data3] = props.data
+    _data1 = data1
+    _data2 = data2
+    _data3 = data3
+  }
+  options1.value = createOptions(
+    isDevModel.value ? salesPieData.value.data1Obj.title : _data1.name,
+    isDevModel.value ? salesPieData.value.data1Obj.value : _data1.total,
+    isDevModel.value ? salesPieData.value.data1Obj.range : _data1.data
+  )
+
+  options2.value = createOptions(
+    isDevModel.value ? salesPieData.value.data2Obj.title : _data2.name,
+    isDevModel.value ? salesPieData.value.data2Obj.value : _data2.total,
+    isDevModel.value ? salesPieData.value.data2Obj.range : _data1.data
+  )
+  options3.value = createOptions(
+    isDevModel.value ? salesPieData.value.data3Obj.title : _data3.name,
+    isDevModel.value ? salesPieData.value.data3Obj.value : _data3.total,
+    isDevModel.value ? salesPieData.value.data3Obj.range : _data1.data
+  )
+}
+watch(() => props.data, () => {
+  update()
+}, {
+  immediate: true
+})
+
 onMounted(() => {
-  options1.value = createOptions(salesPieData.value.data1Obj.title, salesPieData.value.data1Obj.value, salesPieData.value.data1Obj.range)
-  options2.value = createOptions(salesPieData.value.data2Obj.title, salesPieData.value.data2Obj.value, salesPieData.value.data2Obj.range)
-  options3.value = createOptions(salesPieData.value.data3Obj.title, salesPieData.value.data3Obj.value, salesPieData.value.data3Obj.range)
+  update()
 })
 </script>
 <style lang="scss" scoped>

@@ -7,20 +7,29 @@
 </template>
 <script setup>
 import useMockData from '@/mock/useMockData.js'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineProps, watch, computed } from 'vue'
+const props = defineProps({
+  data: {
+    type: Array
+  }
+})
 const options = ref({})
-const { salesSunData, sunColors } = useMockData()
+const { salesSunData, sunColors, addOther2SunData } = useMockData()
 const bgColor = '#2E2733'
+const isDevModel = computed(() => props.data === 'null' || typeof (props.data) === 'undefined')
+const _apiData = ref([])
 
-onMounted(() => {
-  // console.log('salesSunData:', salesSunData.value)
+const update = () => {
+  if (!isDevModel.value && props.data) {
+    _apiData.value = addOther2SunData(props.data)
+  }
   options.value = {
     backgroundColor: bgColor,
     colors: sunColors,
     series: [
       {
         type: 'sunburst',
-        data: salesSunData.value,
+        data: isDevModel.value ? salesSunData.value : _apiData.value,
         center: ['50%', '48%'],
         // 一層圈代表一個{}
         levels: [
@@ -84,6 +93,15 @@ onMounted(() => {
       }
     ]
   }
+}
+watch(() => props.data, () => {
+  update()
+}, {
+  immediate: true
+})
+onMounted(() => {
+  // console.log('salesSunData:', salesSunData.value)
+  update()
 })
 </script>
 <style lang="scss" scoped>

@@ -1,4 +1,4 @@
-import request from '@/utils/requests'
+import request from '@/utils/request'
 
 export function apiGetScreenMobileData () {
   return request({

@@ -1,6 +1,7 @@
 <template>
   <div class="sales-bar">
     <div class="sales-bar-inner">
+      {{axis}}
       <vue-echarts :option="options" style="width:100%;height: 100%"/>
     </div>
   </div>
@@ -8,7 +9,12 @@
 <script setup>
 import useCptPosition from '@/mock/useCptPosition.js'
 import useMockData from '@/mock/useMockData.js'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, defineProps, computed, watch } from 'vue'
+const props = defineProps({
+  data: {
+    type: Object
+  }
+})
 const options = ref({})
 const {
   salesBarData
@@ -19,74 +25,91 @@ const {
 /* eslint-disable */
 const topVal = salesBarPosition.top
 const heightVal = salesBarPosition.height
+// 
+const isDevModel = computed(()=> Object.keys(props.data).length === 0 ? true:false)
+const update = () => {
 
-onMounted(() => {
-  console.log('salesBarPosition: ', salesBarPosition.value)
-  options.value = {
-    title: {
-      text: salesBarData.value.title,
-      textStyle: {
-        color: '#fff'
+  if (props.data && Object.keys(props.data).length !== 0 && props.data.axis) {
+    const {axis, data1, data2} = props.data
+    // console.log("_data: ", props.data.axis[1])
+  
+  
+    options.value = {
+      title: {
+        text: isDevModel.value ?  salesBarData.value.title: '今日銷售額',
+        textStyle: {
+          color: '#fff'
+        },
+        top: 10
       },
-      top: 10
-    },
-    xAxis: {
-      type: 'value'
-    },
-    yAxis: {
-      type: 'category',
-      data: salesBarData.value.axis,
-      axisLabel: {
-        color: '#fff'
-      }
-    },
-    grid: {
-      left: '2%',
-      // right: '8%',
-      bottom: '3%',
-      containLabel: true
-    },
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    series: [
-      {
-        name: salesBarData.value.data1Obj.name,
-        type: 'bar',
-        data: salesBarData.value.data1Obj.data1,
+      xAxis: {
+        type: 'value'
+      },
+      yAxis: {
+        type: 'category',
+        data: isDevModel.value ? salesBarData.value.axis : axis, // salesBarData.value.axis,
         axisLabel: {
-          show: false
-        },
-        axisTick: {
-          show: false
-        },
-        axisLine: {
-          show: false
-        },
-        splitLine: {
-          lineStyle: {
-            color: 'rgba(255, 255, 255, 0.1)'
+          color: '#fff'
+        }
+      },
+      grid: {
+        left: '2%',
+        // right: '8%',
+        bottom: '3%',
+        containLabel: true
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        }
+      },
+      series: [
+        {
+          name: isDevModel.value ? salesBarData.value.data1Obj.name: '平台流量',
+          type: 'bar',
+          data: isDevModel.value ? salesBarData.value.data1Obj.data1  : data1,
+          axisLabel: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
+          axisLine: {
+            show: false
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(255, 255, 255, 0.1)'
+            }
+          },
+          itemStyle: {
+            // 柱子顏色
+            color: 'rgb(235, 9, 5)'
           }
         },
-        itemStyle: {
-          // 柱子顏色
-          color: 'rgb(235, 9, 5)'
+        {
+          name: isDevModel.value ? salesBarData.value.data2Obj.name: '外部流量',
+          type: 'bar',
+          data: isDevModel.value ? salesBarData.value.data2Obj.data2  : data2,
+          itemStyle: {
+            color: 'rgb(0, 140, 217)'
+          }
         }
-      },
-      {
-        name: salesBarData.value.data2Obj.name,
-        type: 'bar',
-        data: salesBarData.value.data2Obj.data2,
-        itemStyle: {
-          color: 'rgb(0, 140, 217)'
-        }
-      }
-    ]
-
+      ]
+    }
   }
+}
+watch(() => props.data, () => {
+
+  console.log("watch: ",props.data)
+  update()
+}, {
+  immediate: true
+})
+onMounted(() => {
+  
+  update()
 })
 </script>
 <style lang="scss" scoped>

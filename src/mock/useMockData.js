@@ -95,6 +95,7 @@ const addOther2SunData = (data) => {
       }
     }
   }
+  return data
 }
 
 export default function () {
@@ -153,6 +154,7 @@ export default function () {
     salesPieData,
     salesSunData,
     sunColors: colors,
-    salesRadarData
+    salesRadarData,
+    addOther2SunData
   }
 }
